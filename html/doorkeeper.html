@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Door Keeper</title>
+    <link rel="stylesheet" href="../css/doorKeeper.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <section class="section1A" id="selectEvent">
+      <div class="welcome">
+        <img src="../image/welcome back.png" alt="welcome back" />
+        <p class="wel">WELCOME BACK</p>
+
+        <form name="logrecord">
+          <div class="mmail">
+            <p>event</p>
+            <select
+              id="eventsss"
+              style="
+                width: 90%;
+                background-color: rgba(255, 255, 255, 0);
+                border: none;
+                height: 30px;
+              "
+            >
+              <option value="">select Event</option>
+            </select>
+          </div>
+
+          <div class="mmail">
+            <p>Entry</p>
+            <select
+              id="ent"
+              style="
+                width: 90%;
+                background-color: rgba(255, 255, 255, 0);
+                border: none;
+                height: 30px;
+              "
+              required
+            ></select>
+          </div>
+
+          <div class="mmail">
+            <p>Email</p>
+            <select
+              name="mailk"
+              id="mail"
+              style="
+                width: 90%;
+                background-color: rgba(255, 255, 255, 0);
+                border: none;
+                height: 30px;
+              "
+              required
+            ></select>
+          </div>
+          <p id="infom" style="color: red"></p>
+
+          <button
+            type="submit"
+            class="but1"
+            id="but5"
+            style="margin-bottom: 30px"
+          >
+            Sign In
+          </button>
+          <br />
+        </form>
+        <a href="../login.html" class="but1"
+          ><button
+            style="
+              padding: 10px 90px;
+              border-radius: 8px;
+              background-color: #969696;
+              border: thin solid white;
+            "
+          >
+            Log In
+          </button></a
+        >
+      </div>
+    </section>
+    <div id="allbobdy" hidden>
+      <nav>
+        <a href="../login.html"
+          ><img src="../image/chevron-left 1.png" alt="chevron-left"
+        /></a>
+        <p id="evnrnTitle">Event Title</p>
+        <img src="../image/Vector.png" alt="vector" id="confImage" />
+      </nav>
+      <h3 id="eventTitle">EVENT STATISTICS</h3>
+
+      <section class="section1">
+        <div class="sta">
+          <div id="current">
+            <p>Event</p>
+            <div><span id="maxIn"></span></div>
+          </div>
+          <img src="../image/Group 34.png" alt="Group" />
+          <div class="details">
+            <p>Total in</p>
+            <p>Total out</p>
+            <p>Closed Entry</p>
+            <p>open Entry</p>
+          </div>
+          <div class="details2">
+            <p id="eachTotalIN"></p>
+            <p id="eachTotalOut"></p>
+            <p id="closedEn">
+              <span id="num1"></span>0<span id="Allgate"></span>
+            </p>
+            <p id="num"></p>
+          </div>
+        </div>
+      </section>
+
+      <h3 class="en">ENTRY STATISTICS</h3>
+      <section class="section2">
+        <div class="sect2">
+          <div class="sectA">
+            <p class="in">TOTAL IN</p>
+            <p id="gateTotalIn">0</p>
+          </div>
+          <div>
+            <p class="in">TOTAL OUT</p>
+            <p id="gateTotalOut">0</p>
+          </div>
+          <div><button id="hello1">Saved</button></div>
+        </div>
+      </section>
+
+      <section class="section3">
+        <div>
+          <button id="decrease" onclick="engine(decrease)">-1</button>
+          <button id="increase" onclick="engine(increase)">+1</button>
+        </div>
+      </section>
+    </div>
+    <div id="dropUp" hidden>
+      <p>Saved</p>
+    </div>
+
+    <!-- <button onclick="release()">kwvnrinv3pwrvner</button> -->
+  </body>
+
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+    crossorigin="anonymous"
+  ></script>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import {
+      getAuth,
+      signInWithEmailAndPassword,
+      onAuthStateChanged,
+    } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+    import {
+      getFirestore,
+      collection,
+      getDocs,
+      getDoc,
+      addDoc,
+      doc,
+      updateDoc,
+    } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+    const firebaseConfig = {
+      apiKey: "AIzaSyCalI8CYfC_Z-nRa3QIqghkcuSmv7E1Jow",
+      authDomain: "event-management-6803d.firebaseapp.com",
+      projectId: "event-management-6803d",
+      storageBucket: "event-management-6803d.appspot.com",
+      messagingSenderId: "78880001605",
+      appId: "1:78880001605:web:c46e3d5dd010eeda959d2c",
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+    const colRef = collection(db, "Event");
+    let allEvent = [];
+    let userss;
+    let gate;
+    let singleblog = [];
+    let theID;
+    let mailtro;
+    let eventt;
+    // setTimeout(() => {
+    //   console.log(ent.value);
+
+    // }, 9000);
+    function updataTheId() {
+      theID = ent.value;
+      console.log(theID, "okpokok");
+    }
+
+    async function checkAuthStatus() {
+      await onAuthStateChanged(auth, (currentUser) => {
+        userss = currentUser.email;
+      });
+    }
+
+    async function getAllEvent() {
+      const res = await getDocs(colRef);
+      res.forEach((eve) => {
+        allEvent.push({ ...eve.data(), id: eve.id });
+      });
+      console.log(allEvent);
+      displayDataOnUi();
+    }
+    getAllEvent();
+
+    function displayDataOnUi() {
+      allEvent.forEach((item, i) => {
+        if (item.user == userss) {
+          eventsss.innerHTML += `<option value='${item.title}'>${item.title}</option>`;
+          console.log(item, "jifjr");
+          console.log(item.title);
+          eventt = item.title;
+          maxIn.innerHTML = eventt;
+          evnrnTitle.innerHTML = eventt;
+        }
+      });
+    }
+    // let singleBlog ={}
+
+    const getSingleBlog = async () => {
+      let monitor = [];
+
+      // console.log(blog)
+      const gateRef = collection(db, `${gate}`);
+      const res = await getDocs(gateRef);
+
+      res.forEach((el, i) => {
+        console.log(el.data(), "banke");
+        monitor.push(el.data());
+        ent.innerHTML += `<option value='${el.id}'>${
+          el.data().doorID
+        }</option>`;
+        mail.innerHTML += `<option value='${el.id}'>${
+          el.data().keepermail
+        }</option>`;
+        gateTotalIn.innerHTML = `${el.data().totalIn}`;
+        gateTotalOut.innerHTML = `${el.data().totalOut}`;
+        // console.log(el.data().totalIn  + el.data().totalOut, 'heheh');
+      });
+      console.log(monitor.length);
+      num.innerHTML = monitor.length;
+      // console.log(res.lenght);
+      let sum = allTOtallIn.reduce(function (x, y) {
+        return y + x;
+      }, 0);
+      let sum2 = allTOtallOut.reduce(function (x, y) {
+        return y + x;
+      }, 0);
+    };
+
+    function getIdToUpdate() {
+      ent.innerHTML = "";
+      mail.innerHTML = "";
+      gate = eventsss.value;
+      getSingleBlog();
+    }
+
+    function createcolforInandOut(e) {
+      e.preventDefault();
+      theID = ent.value;
+      mailtro = mail.value;
+      selectEvent.hidden = true;
+      allbobdy.hidden = false;
+      gateTotalIn.innerHTML = 0;
+      gateTotalOut.innerHTML = 0;
+    }
+
+    async function detsingleDetails() {
+      const singleRef = doc(db, `${gate}`, `${theID}`);
+      // const res = await updateDoc(singleRef)
+      const totalIn = eachTotalIN.textContent;
+      const totalOut = eachTotalOut.textContent;
+      const res = await updateDoc(singleRef, { totalIn, totalOut });
+      // console.log(res.data());
+    }
+
+    function savedData() {
+      eachTotalIN.textContent =
+        Number(eachTotalIN.textContent) + Number(gateTotalIn.textContent);
+      eachTotalOut.textContent =
+        Number(eachTotalOut.textContent) + Number(gateTotalOut.textContent);
+      detsingleDetails();
+      gateTotalIn.textContent = 0;
+      gateTotalOut.textContent = 0;
+      // alert("saved");
+      dropUp.hidden = false;
+      setTimeout(() => {
+        dropUp.hidden = true;
+      }, 1000);
+    }
+    function controlss() {
+      allbobdy.hidden = true;
+      selectEvent.hidden = false;
+    }
+
+    hello1.addEventListener("click", savedData);
+    eventsss.addEventListener("change", getIdToUpdate);
+    ent.addEventListener("change", updataTheId);
+    window.addEventListener("load", checkAuthStatus);
+    logrecord.addEventListener("submit", createcolforInandOut);
+    confImage.addEventListener("click", controlss);
+  </script>
+  <script>
+    function engine(params) {
+      if (params == decrease) {
+        gateTotalIn.textContent++;
+      } else {
+        gateTotalOut.textContent++;
+      }
+    }
+  </script>
+</html>

@@ -1,0 +1,171 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#load1{
+    position: absolute;
+    width: 100%;
+    height: 150vh;
+    // margin-left: -90px; 
+    padding: 0;
+    top: 0;
+    background-color: rgba(241, 239, 239, 0.377);
+    margin: auto;
+    // border: thin solid black;
+}
+.section1{ 
+    .welcome{
+        width: 100%; 
+        margin: 80px auto;
+        text-align: center;
+        img{
+            width: 151px;
+        }
+        .wel{
+            font-size: 20px;
+            font-weight: 1000;
+            padding-top: 10px;
+            font-family: sans-serif; 
+            padding-bottom: 50px; 
+        }
+        .mmail{
+            padding: 5px 10px;
+            margin-top: 90px;
+            background-color: #E5E5E5;
+            border-radius: 5px;
+            text-align: left;
+            width: 455px;
+            margin: auto;
+            margin-bottom: 20px;
+            p{
+                color: #615d5d;
+                font-size: 18px;
+                font-weight: 800;
+            }
+            input{
+                background: none ;
+                color: black;
+                border: none;
+                width: 300px;
+                
+                
+            }
+            input::placeholder{
+                // font-size: 20px;
+                color: black;
+            }
+            input:focus{
+                outline: none;
+            }
+        }
+        .mmail:hover{
+            box-shadow: 1px 0px 10px 1px #30507281;
+        }
+         .but1{
+            height: 50px;
+            width: 455px;
+            background-color: #274D76;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            margin-top: 70px;
+         }
+         .but1:hover{
+            box-shadow: 1px 0px 10px 2px #8f8f8f;
+        }
+    // }
+    .but2{
+        height: 50px;
+        width: 455px;
+        background-color: white;
+        color: #274D76;
+        border: 2px solid #E5E5E5;
+        border-radius: 8px;
+        margin-top: 10px;
+        font-size: 15px;
+     }
+     .but2:hover{
+        box-shadow: 1px 0px 10px 1px #274D76;
+    }
+    }
+}
+
+
+@media(max-width: 480px){
+    .section1{
+        width: 100%; 
+        .welcome{
+            width: 100%; 
+            margin: 120px auto;
+            text-align: center;
+            img{
+                width: 100px;
+            }
+            .wel{
+                font-size: 20px;
+                font-weight: 1000;
+                padding-top: 10px;
+                font-family: sans-serif; 
+                padding-bottom: 50px; 
+            }
+            .mmail{
+                padding: 5px 10px;
+                margin-top: 20px;
+                background-color: #E5E5E5;
+                border-radius: 5px;
+                text-align: left;
+                width: 90%;
+                p{
+                    color: #615d5d;
+                    font-size: 18px;
+                    font-weight: 800;
+                }
+                input{
+                    background: none ;
+                    color: black;
+                    border: none;
+                    width: 300px;
+                    
+                    
+                }
+                input::placeholder{
+                    color: black;
+                }
+                input:focus{
+                    outline: none;
+                }
+            }
+            .mmail:hover{
+                box-shadow: 1px 0px 10px 1px #30507281;
+            }
+             .but1{
+                height: 50px;
+                width: 90%;
+                background-color: #274D76;
+                color: white;
+                border: none;
+                border-radius: 8px;
+                margin-top: 70px;
+             }
+             .but1:hover{
+                box-shadow: 1px 0px 10px 2px #8f8f8f;
+            }
+        // }
+        .but2{
+            height: 50px;
+            width: 90%;
+            background-color: white;
+            color: #274D76;
+            border: 2px solid #E5E5E5;
+            border-radius: 8px;
+            margin-top: 10px;
+            font-size: 15px;
+         }
+         .but2:hover{
+            box-shadow: 1px 0px 10px 1px #274D76;
+        }
+        }
+    }
+}
